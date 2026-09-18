@@ -71,7 +71,7 @@
       <span class="glance__value">In-person delegate</span>
       <span class="glance__sub">Registration required</span>
     </div>
-    <div class="glance__cell">
+    <div class="glance__cell glance__cell--countdown">
       <span class="glance__label">Summit starts in</span>
       <div class="countdown" id="countdown">
         <div class="countdown__unit"><span class="countdown__num" id="cd-days">–</span><span class="countdown__label">days</span></div>
@@ -149,8 +149,6 @@
     <div id="agenda-days">
       <!-- one .day-panel per day, populated by assets/js/agenda.js -->
     </div>
-
-    <p class="agenda__note">This section is rendered live from <code>GET /api/clients/bnef/events/bnef_summit_london_2026/agendas</code>, cross-referenced with the <code>registrations</code> and <code>content-relationships</code> APIs to credit speakers on each session — see <code>assets/js/agenda.js</code>. The "Side Agenda" (additional 1-1 meeting slots) isn't fetched here — add a second call alongside this one if it should appear.</p>
   </div>
 </section>
 
