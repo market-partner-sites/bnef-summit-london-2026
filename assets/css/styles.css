@@ -276,10 +276,10 @@ section[id] { scroll-margin-top: 84px; }
   padding: 22px 26px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
 }
-.glance__icon { flex: none; margin-top: 3px; }
+.glance__icon { flex: none; }
 .glance__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .glance__label { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .glance__value { font-size: 15px; font-weight: 600; }
