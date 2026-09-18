@@ -111,7 +111,6 @@
 
   var ROLE_LABEL = { speaker: 'Speakers', moderator: 'Moderator', presentations: 'Presentations' };
 
-  var CLOCK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#505561" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>';
   var TRACK_TAG_CLASSES = ['tag-energy', 'tag-industry', 'tag-markets', 'tag-finance', 'tag-policy'];
 
   /* -------- speaker modal --------
@@ -256,8 +255,7 @@
 
     if (isBreakLike(session)) {
       var brk = el('div', 'agenda-row__break');
-      brk.innerHTML = CLOCK_ICON;
-      brk.appendChild(document.createTextNode(' ' + session.name.trim()));
+      brk.appendChild(document.createTextNode(session.name.trim()));
       row.appendChild(brk);
     } else {
       var card = el('div', 'card session-card');

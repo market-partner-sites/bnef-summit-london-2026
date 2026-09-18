@@ -347,8 +347,7 @@ section[id] { scroll-margin-top: 84px; }
 .agenda-row:last-child { border-bottom: 1px solid var(--border-soft); }
 .agenda-row.is-hidden { display: none; }
 .agenda-row__time { width: 96px; flex: none; font-size: 13px; color: var(--ink-2); padding-top: 4px; }
-.agenda-row__break { flex: 1; display: flex; align-items: center; gap: 12px; color: var(--ink-2); font-size: 14px; }
-.agenda-row__break svg { flex: none; }
+.agenda-row__break { flex: 1; display: flex; align-items: center; gap: 12px; color: var(--ink-2); font-size: 17px; font-weight: 600; }
 .session-card { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; }
 .session-card h3 { font-size: 17px; font-weight: 600; }
 .session-card__desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
