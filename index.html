@@ -26,7 +26,10 @@
      @font-face in styles.css (see the note at the top of that file)
      once you have the licensed font files, or via your internal
      font-delivery service if BBG serves one. -->
-<link rel="stylesheet" href="assets/css/styles.css">
+<!-- Cache-busting: bump the ?v= value on styles.css/agenda.js/main.js whenever
+     they change, so returning visitors' browsers fetch the new version
+     instead of a stale cached copy. -->
+<link rel="stylesheet" href="assets/css/styles.css?v=20260918a">
 </head>
 <body>
 
@@ -345,8 +348,8 @@
   </div>
 </div>
 
-<script src="assets/js/agenda.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/agenda.js?v=20260918a"></script>
+<script src="assets/js/main.js?v=20260918a"></script>
 <script>
   // Live countdown to the summit start (Oct 19, 2026, 08:00 Europe/London).
   // Approximated as UTC+1 (BST); adjust if daylight-saving rules change.
