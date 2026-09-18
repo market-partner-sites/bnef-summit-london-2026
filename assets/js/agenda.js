@@ -49,7 +49,6 @@
 
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var ROLE_ORDER = ['speaker', 'moderator', 'presentations'];
-  var ROLE_PREFIX = { speaker: '', moderator: 'mod. ', presentations: 'presentations: ' };
 
   /* -------- small helpers -------- */
 
@@ -109,9 +108,7 @@
     };
   }
 
-  function nameWithCompany(person) {
-    return person.company ? person.name + ' (' + person.company + ')' : person.name;
-  }
+  var ROLE_LABEL = { speaker: 'Speakers', moderator: 'Moderator', presentations: 'Presentations' };
 
   var CLOCK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#505561" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>';
   var TRACK_TAG_CLASSES = ['tag-energy', 'tag-industry', 'tag-markets', 'tag-finance', 'tag-policy'];
@@ -141,40 +138,30 @@
     return index;
   }
 
-  function creditsLine(sessionId, creditsIndex) {
-    var group = creditsIndex[sessionId];
-    if (!group) return null;
-    var parts = [];
-    ROLE_ORDER.forEach(function (role) {
-      if (group[role].length) {
-        parts.push(ROLE_PREFIX[role] + group[role].map(nameWithCompany).join(', '));
-      }
-    });
-    return parts.length ? parts.join(' · ') : null;
+  // One named row per credited person: photo, name, job title + company —
+  // grouped under a "Speakers" / "Moderator" label, matching how the
+  // client's reference design credits people on a session.
+  function buildCreditRow(person) {
+    var row = el('div', 'speaker-credit');
+    var img = document.createElement('img');
+    img.className = 'speaker-credit__photo';
+    img.src = person.photo;
+    img.alt = '';
+    img.loading = 'lazy';
+    row.appendChild(img);
+    var info = el('div', 'speaker-credit__info');
+    info.appendChild(text('span', 'speaker-credit__name', person.name));
+    var roleLine = [person.jobTitle, person.company].filter(Boolean).join(', ');
+    if (roleLine) info.appendChild(text('span', 'speaker-credit__role', roleLine));
+    row.appendChild(info);
+    return row;
   }
 
-  function creditsPeople(sessionId, creditsIndex) {
-    var group = creditsIndex[sessionId];
-    if (!group) return [];
-    return group.speaker.concat(group.moderator, group.presentations);
-  }
-
-  function buildAvatarStack(people) {
-    var stack = el('div', 'avatar-stack');
-    var shown = people.slice(0, 4);
-    shown.forEach(function (person) {
-      var img = document.createElement('img');
-      img.className = 'avatar';
-      img.src = person.photo;
-      img.alt = person.name;
-      img.loading = 'lazy';
-      stack.appendChild(img);
-    });
-    if (people.length > shown.length) {
-      var more = text('div', 'avatar avatar-more', '+' + (people.length - shown.length));
-      stack.appendChild(more);
-    }
-    return stack;
+  function buildCreditGroup(role, people) {
+    var group = el('div', 'speaker-credit-group');
+    group.appendChild(text('span', 'speaker-credit-group__label', ROLE_LABEL[role] || role));
+    people.forEach(function (person) { group.appendChild(buildCreditRow(person)); });
+    return group;
   }
 
   /* -------- agenda rendering -------- */
@@ -209,13 +196,17 @@
   }
 
   function appendCredits(card, sessionId, creditsIndex) {
-    var line = creditsLine(sessionId, creditsIndex);
-    if (!line) return;
+    var group = creditsIndex[sessionId];
+    if (!group) return;
     var wrap = el('div', 'session-card__speakers');
-    var people = creditsPeople(sessionId, creditsIndex);
-    if (people.length) wrap.appendChild(buildAvatarStack(people));
-    wrap.appendChild(text('span', 'session-card__speakers-text', line));
-    card.appendChild(wrap);
+    var any = false;
+    ROLE_ORDER.forEach(function (role) {
+      if (group[role].length) {
+        any = true;
+        wrap.appendChild(buildCreditGroup(role, group[role]));
+      }
+    });
+    if (any) card.appendChild(wrap);
   }
 
   function buildBreakoutGroup(breakout, tracks, creditsIndex) {
