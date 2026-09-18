@@ -540,13 +540,13 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
   .site-nav__toggle { display: block; }
 
   .hero h1 { font-size: 44px; }
-  .hero__inner { padding: 48px 0 44px; }
+  .hero__inner { padding: 24px 0 22px; }
 
   .glance__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .overview { grid-template-columns: 1fr; gap: 40px; padding-top: 40px; padding-bottom: 40px; }
+  .overview { grid-template-columns: 1fr; gap: 40px; padding-top: 20px; padding-bottom: 20px; }
 
-  .agenda { padding-top: 50px; padding-bottom: 54px; }
+  .agenda { padding-top: 25px; padding-bottom: 27px; }
   .agenda__head { flex-direction: column; align-items: flex-start; }
 
   .track-block__grid.cols-2,
@@ -555,18 +555,18 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
   .agenda-row__time { width: auto; }
   .track-block__head { flex-direction: column; gap: 6px; }
 
-  .speakers { padding-top: 54px; padding-bottom: 54px; }
+  .speakers { padding-top: 27px; padding-bottom: 27px; }
   .speakers__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  .venue__grid { grid-template-columns: 1fr; gap: 40px; padding-top: 36px; padding-bottom: 36px; }
+  .venue__grid { grid-template-columns: 1fr; gap: 40px; padding-top: 18px; padding-bottom: 18px; }
 
-  .register { padding-top: 54px; padding-bottom: 54px; }
+  .register { padding-top: 27px; padding-bottom: 27px; }
   .register__grid { grid-template-columns: 1fr; gap: 40px; }
   .register__aside { position: static; }
   .field-row { grid-template-columns: 1fr; }
 
-  .site-footer__top { padding-top: 28px; padding-bottom: 14px; }
-  .site-footer__bottom { padding-top: 11px; padding-bottom: 20px; }
+  .site-footer__top { padding-top: 14px; padding-bottom: 7px; }
+  .site-footer__bottom { padding-top: 6px; padding-bottom: 10px; }
 }
 
 @media (max-width: 560px) {
