@@ -293,7 +293,7 @@ section[id] { scroll-margin-top: 84px; }
 /* ---------- overview ---------- */
 .overview {
   padding-top: 108px;
-  padding-bottom: 96px;
+  padding-bottom: 64px;
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: 72px;
@@ -311,7 +311,7 @@ section[id] { scroll-margin-top: 84px; }
 .involve__divider { height: 1px; background: #eeece7; }
 
 /* ---------- agenda ---------- */
-.agenda { background: var(--surface-tint); padding: 100px 0 108px; }
+.agenda { background: var(--surface-tint); padding: 67px 0 108px; }
 .agenda__head {
   display: flex;
   align-items: flex-end;
