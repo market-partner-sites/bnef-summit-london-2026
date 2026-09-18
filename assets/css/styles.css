@@ -275,7 +275,7 @@ section[id] { scroll-margin-top: 84px; }
   padding: 28px 26px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 .glance__label { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .glance__value { font-size: 15px; font-weight: 600; }
