@@ -396,7 +396,7 @@
       .filter(function (r) { return r.profile && r.profile.profile_visible !== false; })
       .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
     visible.forEach(function (reg) { grid.appendChild(buildSpeakerCard(reg)); });
-    status.textContent = visible.length + ' confirmed speakers.';
+    if (status) { status.remove(); }
   }
 
   /* -------- boot -------- */
