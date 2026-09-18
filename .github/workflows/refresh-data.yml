@@ -1,0 +1,65 @@
+name: Refresh live event data
+
+# Keeps data/*.json up to date so the site has real content even where the
+# bbgevent.app APIs can't be called directly from the browser (CORS only
+# allows bbgevent.app itself to read them — see the comment block at the
+# top of assets/js/agenda.js). This runs server-side on GitHub's runners,
+# so CORS doesn't apply here at all — it's a plain HTTP fetch.
+#
+# The site tries the live API first and only uses these files as a
+# fallback, so this keeps that fallback fresh to within ~15 minutes.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-data.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch live data
+        run: |
+          mkdir -p data
+
+          fetch() {
+            url="$1"
+            out="$2"
+            tmp="$(mktemp)"
+            if curl -sSf --max-time 30 "$url" -o "$tmp" && jq empty "$tmp" 2>/dev/null; then
+              mv "$tmp" "$out"
+              echo "Refreshed $out"
+            else
+              echo "::warning::Failed to fetch or parse $url — keeping existing $out"
+              rm -f "$tmp"
+            fi
+          }
+
+          fetch 'https://bbgevent.app/api/clients/bnef/events/bnef_summit_london_2026/agendas' data/agenda.json
+          fetch 'https://bbgevent.app/api/clients/bnef/events/bnef_summit_london_2026/registrations?categoryType=Speaker' data/speakers.json
+          fetch 'https://bbgevent.app/api/clients/bnef/events/bnef_summit_london_2026/content-relationships' data/relationships.json
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/agenda.json data/speakers.json data/relationships.json
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "chore: refresh live event data snapshot"
+            git push
+          fi
