@@ -281,6 +281,7 @@ section[id] { scroll-margin-top: 84px; }
 }
 .glance__icon { flex: none; }
 .glance__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.glance__cell--countdown { flex-direction: column; align-items: flex-start; gap: 8px; }
 .glance__label { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .glance__value { font-size: 15px; font-weight: 600; }
 .glance__sub { font-size: 13px; color: var(--ink-2); }
