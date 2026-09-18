@@ -273,11 +273,14 @@ section[id] { scroll-margin-top: 84px; }
 }
 .glance__cell {
   background: var(--surface);
-  padding: 28px 26px;
+  padding: 22px 26px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 14px;
 }
+.glance__icon { flex: none; margin-top: 3px; }
+.glance__text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .glance__label { font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .glance__value { font-size: 15px; font-weight: 600; }
 .glance__sub { font-size: 13px; color: var(--ink-2); }
