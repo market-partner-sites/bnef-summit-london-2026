@@ -104,7 +104,8 @@
       name: [p.first_name, p.last_name].filter(Boolean).join(' '),
       company: p.company || '',
       jobTitle: p.job_title || '',
-      photo: (p.profile_picture && p.profile_picture.absoluteUrl) || ''
+      photo: (p.profile_picture && p.profile_picture.absoluteUrl) || '',
+      bioHtml: (p.bio && p.bio.html) || ''
     };
   }
 
@@ -112,6 +113,84 @@
 
   var CLOCK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#505561" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>';
   var TRACK_TAG_CLASSES = ['tag-energy', 'tag-industry', 'tag-markets', 'tag-finance', 'tag-policy'];
+
+  /* -------- speaker modal --------
+     One shared dialog (markup lives in index.html as #speaker-modal),
+     populated and shown whenever a speaker's photo/name/card is clicked
+     anywhere on the page (Speakers grid or an agenda session's credits). */
+
+  var speakerModal = null;
+  var speakerModalPreviouslyFocused = null;
+
+  function getSpeakerModal() {
+    if (!speakerModal) speakerModal = document.getElementById('speaker-modal');
+    return speakerModal;
+  }
+
+  function openSpeakerModal(person) {
+    var modal = getSpeakerModal();
+    if (!modal || !person || !person.name) return;
+
+    modal.querySelector('.speaker-modal__photo').src = person.photo;
+    modal.querySelector('.speaker-modal__photo').alt = person.name;
+    modal.querySelector('.speaker-modal__name').textContent = person.name;
+    var roleLine = [person.jobTitle, person.company].filter(Boolean).join(', ');
+    var roleEl = modal.querySelector('.speaker-modal__role');
+    roleEl.textContent = roleLine;
+    roleEl.style.display = roleLine ? '' : 'none';
+    var bioEl = modal.querySelector('.speaker-modal__bio');
+    if (person.bioHtml) {
+      bioEl.innerHTML = person.bioHtml;
+      bioEl.style.display = '';
+    } else {
+      bioEl.innerHTML = '';
+      bioEl.style.display = 'none';
+    }
+
+    speakerModalPreviouslyFocused = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    var closeBtn = modal.querySelector('.speaker-modal__close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeSpeakerModal() {
+    var modal = getSpeakerModal();
+    if (!modal || !modal.classList.contains('is-open')) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (speakerModalPreviouslyFocused && speakerModalPreviouslyFocused.focus) {
+      speakerModalPreviouslyFocused.focus();
+    }
+  }
+
+  function initSpeakerModal() {
+    var modal = getSpeakerModal();
+    if (!modal) return;
+    modal.querySelector('.speaker-modal__close').addEventListener('click', closeSpeakerModal);
+    modal.querySelector('.speaker-modal__backdrop').addEventListener('click', closeSpeakerModal);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeSpeakerModal();
+    });
+  }
+
+  // Wires a person card/row up to open the modal on click and Enter/Space,
+  // and makes it look and behave like an interactive control.
+  function makeClickableForModal(node, person) {
+    if (!person || !person.name) return;
+    node.classList.add('is-clickable');
+    node.setAttribute('role', 'button');
+    node.setAttribute('tabindex', '0');
+    node.addEventListener('click', function () { openSpeakerModal(person); });
+    node.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openSpeakerModal(person);
+      }
+    });
+  }
 
   /* -------- building the session -> credited people index -------- */
 
@@ -154,6 +233,7 @@
     var roleLine = [person.jobTitle, person.company].filter(Boolean).join(', ');
     if (roleLine) info.appendChild(text('span', 'speaker-credit__role', roleLine));
     row.appendChild(info);
+    makeClickableForModal(row, person);
     return row;
   }
 
@@ -377,6 +457,7 @@
     meta.appendChild(text('div', 'speaker-card__role', roleParts));
     card.appendChild(meta);
 
+    makeClickableForModal(card, person);
     return card;
   }
 
@@ -411,6 +492,8 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    initSpeakerModal();
+
     var agendaStatus = document.getElementById('agenda-status');
     var speakersStatus = document.getElementById('speakers-status');
 

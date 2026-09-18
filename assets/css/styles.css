@@ -391,6 +391,76 @@ section[id] { scroll-margin-top: 84px; }
 .speaker-card__name { font-size: 15px; font-weight: 600; }
 .speaker-card__role { font-size: 12.5px; color: var(--ink-2); }
 
+.is-clickable { cursor: pointer; border-radius: var(--radius-sm); }
+.is-clickable:hover .speaker-card__name,
+.is-clickable:hover .speaker-credit__name { color: var(--accent-dark); text-decoration: underline; }
+.is-clickable:hover .speaker-card__avatar,
+.is-clickable:hover .speaker-credit__photo { opacity: 0.9; }
+.is-clickable:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* ---------- speaker modal ---------- */
+body.modal-open { overflow: hidden; }
+.speaker-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 20px;
+  overflow-y: auto;
+}
+.speaker-modal.is-open { display: flex; }
+.speaker-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 16, 28, 0.6);
+}
+.speaker-modal__dialog {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.speaker-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--surface-tint);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.speaker-modal__close:hover { background: var(--border-soft); color: var(--ink); }
+.speaker-modal__photo {
+  width: 96px; height: 96px; border-radius: 50%;
+  object-fit: cover; background: var(--surface-tint);
+  margin-bottom: 16px;
+}
+.speaker-modal__name { font-size: 22px; font-weight: 700; color: var(--ink); }
+.speaker-modal__role { font-size: 14px; color: var(--ink-2); margin-bottom: 18px; }
+.speaker-modal__bio { font-size: 14.5px; line-height: 1.7; color: var(--ink-2); }
+.speaker-modal__bio p { margin: 0 0 14px; }
+.speaker-modal__bio p:last-child { margin-bottom: 0; }
+
+@media (max-width: 560px) {
+  .speaker-modal { padding: 24px 16px; }
+  .speaker-modal__dialog { padding: 28px 24px; }
+}
+
 /* ---------- venue ---------- */
 .venue { background: var(--ink-navy); color: #fff; }
 .venue__grid { padding-top: 100px; padding-bottom: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }

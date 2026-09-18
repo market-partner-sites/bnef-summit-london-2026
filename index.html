@@ -307,6 +307,23 @@
   </div>
 </footer>
 
+<!-- ============ SPEAKER MODAL ============
+     Single shared dialog, populated by assets/js/agenda.js whenever a
+     speaker's photo/name is clicked (Speakers grid or an agenda card's
+     speaker credits). -->
+<div class="speaker-modal" id="speaker-modal" aria-hidden="true">
+  <div class="speaker-modal__backdrop"></div>
+  <div class="speaker-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="speaker-modal-name">
+    <button type="button" class="speaker-modal__close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <img class="speaker-modal__photo" src="" alt="">
+    <div class="speaker-modal__name" id="speaker-modal-name"></div>
+    <div class="speaker-modal__role"></div>
+    <div class="speaker-modal__bio"></div>
+  </div>
+</div>
+
 <script src="assets/js/agenda.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
