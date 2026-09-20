@@ -201,8 +201,10 @@ section[id] { scroll-margin-top: 84px; }
 .site-nav__divider { width: 1px; height: 16px; background: var(--border-soft); }
 .site-nav__tag { font-size: 11px; color: var(--ink-2); }
 .site-nav__links { display: flex; align-items: center; gap: 36px; }
-.site-nav__link { font-size: 16px; font-weight: 600; color: var(--ink); }
+.site-nav__link { font-size: 17px; font-weight: 600; color: var(--ink); }
 .site-nav__link:hover { color: var(--accent); }
+.site-nav .btn { font-size: 15px; }
+.site-nav .btn-primary { color: #fff; }
 .site-nav__toggle {
   display: none;
   background: none;
