@@ -578,7 +578,7 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
   .hero h1 { font-size: 41px; }
   .hero__inner { padding: 24px 0 22px; }
   .hero__sub { font-size: 16px; }
-  .glance { margin-top: 0; }
+  .glance { margin-top: 20px; }
   .glance__grid { grid-template-columns: 1fr; }
   .glance__cell { padding: 16px 20px; }
   .glance__sub { display: none; }
