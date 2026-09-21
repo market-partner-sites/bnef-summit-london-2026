@@ -575,7 +575,7 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
 
 @media (max-width: 560px) {
   :root { --container-pad: 20px; }
-  .hero h1 { font-size: 34px; }
+  .hero h1 { font-size: 41px; }
   .hero__inner { padding: 24px 0 22px; }
   .hero__sub { font-size: 16px; }
   .glance__grid { grid-template-columns: 1fr; }
