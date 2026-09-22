@@ -584,6 +584,7 @@ select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csv
   .glance__grid { grid-template-columns: 1fr; }
   .glance__cell { padding: 16px 20px; }
   .glance__sub { display: none; }
+  .overview { padding-top: 48px; }
   .speakers__grid { grid-template-columns: 1fr 1fr; gap: 18px; }
   .overview__lead { font-size: 22px; }
   .site-footer__top { flex-direction: column; }
