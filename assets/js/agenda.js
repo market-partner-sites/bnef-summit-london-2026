@@ -460,12 +460,22 @@
   }
 
   function renderSpeakers(registrations) {
-    var grid = document.getElementById('speakers-grid');
+    var industryGrid = document.getElementById('speakers-grid-industry');
+    var bnefGrid = document.getElementById('speakers-grid-bnef');
+    var industryGroup = document.getElementById('speakers-group-industry');
+    var bnefGroup = document.getElementById('speakers-group-bnef');
     var status = document.getElementById('speakers-status');
     var visible = registrations
       .filter(function (r) { return r.profile && r.profile.profile_visible !== false; })
       .sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
-    visible.forEach(function (reg) { grid.appendChild(buildSpeakerCard(reg)); });
+    visible.forEach(function (reg) {
+      var person = personFromRegistration(reg);
+      var titleText = [person.jobTitle, person.company].filter(Boolean).join(', ');
+      var isBnef = /bloombergnef/i.test(titleText);
+      (isBnef ? bnefGrid : industryGrid).appendChild(buildSpeakerCard(reg));
+    });
+    if (industryGroup && industryGrid.children.length === 0) { industryGroup.style.display = 'none'; }
+    if (bnefGroup && bnefGrid.children.length === 0) { bnefGroup.style.display = 'none'; }
     if (status) { status.remove(); }
   }
 

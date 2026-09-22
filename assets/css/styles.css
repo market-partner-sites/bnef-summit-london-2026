@@ -387,6 +387,8 @@ section[id] { scroll-margin-top: 84px; }
 .speakers { padding-top: 108px; padding-bottom: 108px; }
 .speakers__head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; }
 .speakers__head h2 { font-size: 36px; font-weight: 600; }
+.speakers__group + .speakers__group { margin-top: 56px; }
+.speakers__subhead { font-size: 20px; font-weight: 600; margin-bottom: 24px; }
 .speakers__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
 .speaker-card { display: flex; flex-direction: column; gap: 14px; }
 .speaker-card__avatar {
